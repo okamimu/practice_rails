@@ -9,4 +9,17 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
+def secure_token
+  token_file = Rails.root.join('.secret')
+  if File.exist?(token_file)
+    # Use the existing token.
+    File.read(token_file).chomp
+  else
+    # Generate a new token and store it in token_file.
+    token = SecureRandom.hex(64)
+    File.write(token_file, token)
+    token  end
+end
+#SampleApp::Application.config.secret_key_base = secure_token
+
 Amaterasu::Application.config.secret_key_base = 'da975fdcbb0325e104f11a1bc4c822b4cd456618ee5f552c015674bb30b7623b03597d0b54bb2f67609cc168f4f8b2c59b9188840c3f64d70abb7db2aeb03405'
